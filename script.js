@@ -273,10 +273,10 @@ window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
     
     if (window.scrollY > 50) {
-        navbar.style.background = 'rgba(10, 14, 23, 0.95)';
+        navbar.style.background = 'rgba(0, 0, 0, 0.95)';
         navbar.style.backdropFilter = 'blur(15px)';
     } else {
-        navbar.style.background = 'rgba(10, 14, 23, 0.9)';
+        navbar.style.background = 'rgba(0, 0, 0, 0.9)';
         navbar.style.backdropFilter = 'blur(10px)';
     }
 });
