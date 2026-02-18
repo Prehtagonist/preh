@@ -1,0 +1,12 @@
+{
+  "framework": "static",
+  "outputDirectory": ".",
+  "buildCommand": "echo 'No build required for static site'",
+  "installCommand": "echo 'Skipping installation for static site'",
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
