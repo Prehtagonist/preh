@@ -85,26 +85,26 @@ document.querySelectorAll('.tab-button').forEach(button => {
     });
 });
 
-// Stats counter animation
-function animateStats() {
-    const statElements = document.querySelectorAll('.stat-number');
-    
-    statElements.forEach(stat => {
-        const target = parseInt(stat.getAttribute('data-target'));
-        const duration = 2000; // Animation duration in ms
-        const increment = target / (duration / 16); // 60fps approximation
-        let current = 0;
-        
-        const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-                current = target;
-                clearInterval(timer);
-            }
-            stat.textContent = Math.floor(current).toLocaleString();
-        }, 16);
-    });
-}
+// Stats counter animation - REMOVED with achievements section
+// function animateStats() {
+//     const statElements = document.querySelectorAll('.stat-number');
+//     
+//     statElements.forEach(stat => {
+//         const target = parseInt(stat.getAttribute('data-target'));
+//         const duration = 2000; // Animation duration in ms
+//         const increment = target / (duration / 16); // 60fps approximation
+//         let current = 0;
+//         
+//         const timer = setInterval(() => {
+//             current += increment;
+//             if (current >= target) {
+//                 current = target;
+//                 clearInterval(timer);
+//             }
+//             stat.textContent = Math.floor(current).toLocaleString();
+//         }, 16);
+//     });
+// }
 
 // Intersection Observer for scroll animations
 const observerOptions = {
@@ -117,10 +117,7 @@ const observer = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
             
-            // Trigger stats animation when achievements section comes into view
-            if (entry.target.id === 'achievements') {
-                animateStats();
-            }
+            
         }
     });
 }, observerOptions);
@@ -312,9 +309,92 @@ function updateFollowerCount() {
 // Update follower count periodically
 setInterval(updateFollowerCount, 30000); // Update every 30 seconds
 
+// 3D Tilt Effect for Avatar
+function initAvatarTilt() {
+    const avatarContainer = document.querySelector('.avatar-container');
+    if (!avatarContainer) return;
+    
+    let isTilting = false;
+    
+    avatarContainer.addEventListener('mousemove', (e) => {
+        if (isTilting) return;
+        
+        const rect = avatarContainer.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = (y - centerY) / 15;
+        const rotateY = (centerX - x) / 15;
+        
+        avatarContainer.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+    });
+    
+    avatarContainer.addEventListener('mouseenter', () => {
+        isTilting = true;
+        avatarContainer.style.transition = 'transform 0.1s ease';
+    });
+    
+    avatarContainer.addEventListener('mouseleave', () => {
+        isTilting = false;
+        avatarContainer.style.transform = '';
+        avatarContainer.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+    });
+}
+
 // Initialize everything when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Prehtagonist Portfolio loaded successfully!');
     
-    // Add any additional initialization code here
+    // Initialize avatar tilt effect
+    initAvatarTilt();
+    
+    // Preload and debug background image
+    const bgImage = new Image();
+    const imagePath = './assets/images/5812121359415446736.jpg';
+    bgImage.src = imagePath;
+    
+    console.log('Attempting to load background image from:', imagePath);
+    console.log('Full URL would be:', window.location.origin + '/' + imagePath);
+    
+    bgImage.onload = function() {
+        console.log('✅ Background image loaded successfully:', bgImage.src);
+        console.log('Image dimensions:', bgImage.naturalWidth + 'x' + bgImage.naturalHeight);
+        document.body.style.backgroundColor = '#000000'; // Reset to black if image loads
+    };
+    
+    bgImage.onerror = function() {
+        console.error('❌ Failed to load background image:', bgImage.src);
+        console.log('Current background-image CSS:', getComputedStyle(document.body).backgroundImage);
+        console.log('Full window location:', window.location.href);
+        // Try alternative path
+        const altImage = new Image();
+        altImage.src = '/assets/images/5812121359415446736.jpg';
+        altImage.onload = () => {
+            console.log('✅ Alternative path worked:', altImage.src);
+            document.body.style.backgroundImage = `url('${altImage.src}')`;
+        };
+        altImage.onerror = () => {
+            console.error('❌ Alternative path also failed:', altImage.src);
+        };
+    };
+    
+    // Debug current background
+    setTimeout(() => {
+        const bgStyle = getComputedStyle(document.body).backgroundImage;
+        const bgColor = getComputedStyle(document.body).backgroundColor;
+        console.log('Current body background-image:', bgStyle);
+        console.log('Current body background-color:', bgColor);
+        if (bgStyle.includes('5812121359415446736.jpg')) {
+            console.log('✅ Background image path is correctly set in CSS');
+        } else {
+            console.log('❌ Background image path may be incorrect');
+        }
+        
+        // Check if we're seeing the fallback color
+        if (bgColor === 'rgb(10, 26, 42)' || bgColor === '#0a1a2a') {
+            console.log('⚠️  Seeing fallback background color - image likely not loading');
+        }
+    }, 1500);
 });

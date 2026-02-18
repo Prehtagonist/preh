@@ -21,14 +21,41 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background: #000000;
+    background-color: #000011;
     color: var(--text-primary);
     overflow-x: hidden;
     min-height: 100vh;
     position: relative;
+    /* Fallback background - should be visible if image fails */
+    background: #0a1a2a;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(14, 165, 233, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(56, 189, 248, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 30% 70%, rgba(6, 182, 212, 0.08) 0%, transparent 15%),
+        url('./assets/images/5812121359415446736.jpg');
+    background-size: cover, cover, cover, cover;
+    background-position: center, center, center, center;
+    background-attachment: fixed, fixed, fixed, fixed;
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+    /* Ensure background is visible */
+    background-blend-mode: normal;
+    /* Force background visibility */
+    background-clip: border-box;
 }
 
-/* Solid black background - no gradients */
+/* Background overlay for readability */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(2px);
+    z-index: -1;
+    pointer-events: none;
+}
 
 /* Subtle blue glow accents in corners */
 body::after {
@@ -186,6 +213,7 @@ h1, h2, h3, h4 {
     position: relative;
     overflow: hidden;
     padding: 0 20px;
+    z-index: 1;
 }
 
 .particles-container {
@@ -258,7 +286,8 @@ h1, h2, h3, h4 {
     align-items: center;
     width: 100%;
     max-width: 1200px;
-    z-index: 2;
+    z-index: 3;
+    position: relative;
 }
 
 .hero-text {
@@ -311,46 +340,62 @@ h1, h2, h3, h4 {
 
 .hero-avatar {
     flex: 0 0 auto;
+    position: relative;
+    margin-left: 2rem;
 }
 
 .avatar-container {
     position: relative;
-    animation: floatAvatar 6s ease-in-out infinite;
+    animation: floatAvatar 8s ease-in-out infinite;
+    perspective: 1000px;
+    transition: transform 0.3s ease;
 }
 
 .avatar-container::before {
     content: '';
     position: absolute;
-    top: -5px;
-    left: -5px;
-    right: -5px;
-    bottom: -5px;
-    background: linear-gradient(45deg, var(--accent-blue), var(--accent-light-blue));
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    background: linear-gradient(45deg, var(--accent-blue), var(--accent-light-blue), var(--accent-electric-blue));
     border-radius: 50%;
     z-index: -1;
-    animation: glow 2s infinite alternate;
+    animation: glow 3s infinite alternate;
+    box-shadow: 0 0 30px var(--glow-color);
 }
 
 .avatar {
-    width: 200px;
-    height: 200px;
+    width: 220px;
+    height: 220px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid transparent;
+    border: 4px solid transparent;
     background: linear-gradient(45deg, var(--accent-blue), var(--accent-light-blue));
-    padding: 3px;
+    padding: 4px;
     background-clip: padding-box;
-    box-shadow: 0 0 20px var(--glow-color);
+    box-shadow: 0 0 25px var(--glow-color), 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    will-change: transform;
+    filter: drop-shadow(0 0 15px rgba(14, 165, 233, 0.4));
 }
 
 @keyframes floatAvatar {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-15px) rotate(2deg); }
+    50% { transform: translateY(-25px) rotate(0deg); }
+    75% { transform: translateY(-15px) rotate(-2deg); }
 }
 
 @keyframes glow {
-    0% { box-shadow: 0 0 10px var(--glow-color); }
-    100% { box-shadow: 0 0 30px var(--glow-color); }
+    0% { 
+        box-shadow: 0 0 15px var(--glow-color), 0 0 30px rgba(14, 165, 233, 0.3);
+        transform: scale(1);
+    }
+    100% { 
+        box-shadow: 0 0 40px var(--glow-color), 0 0 60px rgba(14, 165, 233, 0.5);
+        transform: scale(1.03);
+    }
 }
 
 .scroll-indicator {
@@ -787,15 +832,22 @@ h1, h2, h3, h4 {
     }
 
     .hero-content {
-        flex-direction: column;
+        flex-direction: column-reverse;
         text-align: center;
-        gap: 3rem;
+        gap: 2rem;
     }
 
     .hero-text {
         display: flex;
         flex-direction: column;
         align-items: center;
+        order: 2;
+    }
+
+    .hero-avatar {
+        margin-left: 0;
+        margin-bottom: 1rem;
+        order: 1;
     }
 
     .hero-title {
@@ -850,8 +902,15 @@ h1, h2, h3, h4 {
     }
 
     .avatar {
-        width: 150px;
-        height: 150px;
+        width: 180px;
+        height: 180px;
+    }
+
+    .avatar-container::before {
+        top: -6px;
+        left: -6px;
+        right: -6px;
+        bottom: -6px;
     }
 
     .expertise-grid {

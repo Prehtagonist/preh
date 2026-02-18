@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vercel Image Path Test</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px;
+            background: #111;
+            color: white;
+        }
+        .test-image {
+            max-width: 300px;
+            border: 2px solid #0ea5e9;
+            margin: 10px 0;
+        }
+        .path-test {
+            background: #222;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vercel Background Image Path Test</h1>
+    
+    <div class="path-test">
+        <h3>Relative Path Test:</h3>
+        <img src="./assets/images/5812121359415446736.jpg" alt="Relative path test" class="test-image" onerror="console.error('Relative path failed')" onload="console.log('Relative path works')">
+        <p>Path: ./assets/images/5812121359415446736.jpg</p>
+    </div>
+    
+    <div class="path-test">
+        <h3>Absolute Path Test:</h3>
+        <img src="/assets/images/5812121359415446736.jpg" alt="Absolute path test" class="test-image" onerror="console.error('Absolute path failed')" onload="console.log('Absolute path works')">
+        <p>Path: /assets/images/5812121359415446736.jpg</p>
+    </div>
+    
+    <div class="path-test">
+        <h3>Full URL Test:</h3>
+        <script>
+            const fullUrl = window.location.origin + '/assets/images/5812121359415446736.jpg';
+            document.write(`<img src="${fullUrl}" alt="Full URL test" class="test-image" onerror="console.error('Full URL failed: ${fullUrl}')" onload="console.log('Full URL works: ${fullUrl}')">`);
+            document.write(`<p>Full URL: ${fullUrl}</p>`);
+        </script>
+    </div>
+    
+    <script>
+        console.log('Page location:', window.location.href);
+        console.log('Origin:', window.location.origin);
+    </script>
+</body>
+</html>
