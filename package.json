@@ -2,17 +2,13 @@
   "name": "prehtagonist-profile",
   "version": "1.0.0",
   "description": "A modern, fully responsive Web3 portfolio website for Prehtagonist",
-  "main": "index.html",
   "scripts": {
-    "start": "serve .",
     "dev": "live-server --port=3000",
-    "build": "echo 'Build completed'",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "vercel-build": "echo 'Vercel build completed'"
+    "preview": "serve ."
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Prehtagonist/Prehtagonist-profile.git"
+    "url": "https://github.com/Prehtagonist/preh.git"
   },
   "keywords": [
     "web3",
@@ -25,14 +21,7 @@
   "author": "Prehtagonist",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Prehtagonist/Prehtagonist-profile/issues"
+    "url": "https://github.com/Prehtagonist/preh/issues"
   },
-  "homepage": "https://github.com/Prehtagonist/Prehtagonist-profile#readme",
-  "dependencies": {
-    "express": "^4.18.2"
-  },
-  "devDependencies": {
-    "serve": "^14.2.0",
-    "live-server": "^1.2.2"
-  }
+  "homepage": "https://github.com/Prehtagonist/preh#readme"
 }
