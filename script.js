@@ -350,51 +350,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize avatar tilt effect
     initAvatarTilt();
     
-    // Preload and debug background image
-    const bgImage = new Image();
-    const imagePath = './assets/images/5812121359415446736.jpg';
-    bgImage.src = imagePath;
-    
-    console.log('Attempting to load background image from:', imagePath);
-    console.log('Full URL would be:', window.location.origin + '/' + imagePath);
-    
-    bgImage.onload = function() {
-        console.log('✅ Background image loaded successfully:', bgImage.src);
-        console.log('Image dimensions:', bgImage.naturalWidth + 'x' + bgImage.naturalHeight);
-        document.body.style.backgroundColor = '#000000'; // Reset to black if image loads
-    };
-    
-    bgImage.onerror = function() {
-        console.error('❌ Failed to load background image:', bgImage.src);
-        console.log('Current background-image CSS:', getComputedStyle(document.body).backgroundImage);
-        console.log('Full window location:', window.location.href);
-        // Try alternative path
-        const altImage = new Image();
-        altImage.src = '/assets/images/5812121359415446736.jpg';
-        altImage.onload = () => {
-            console.log('✅ Alternative path worked:', altImage.src);
-            document.body.style.backgroundImage = `url('${altImage.src}')`;
-        };
-        altImage.onerror = () => {
-            console.error('❌ Alternative path also failed:', altImage.src);
-        };
-    };
+    // Background image loading removed with image deletion
+    // Background is now handled via CSS gradients and overlays
     
     // Debug current background
     setTimeout(() => {
         const bgStyle = getComputedStyle(document.body).backgroundImage;
         const bgColor = getComputedStyle(document.body).backgroundColor;
+        console.log('Current body background:', bgColor);
         console.log('Current body background-image:', bgStyle);
-        console.log('Current body background-color:', bgColor);
-        if (bgStyle.includes('5812121359415446736.jpg')) {
-            console.log('✅ Background image path is correctly set in CSS');
-        } else {
-            console.log('❌ Background image path may be incorrect');
-        }
-        
-        // Check if we're seeing the fallback color
-        if (bgColor === 'rgb(10, 26, 42)' || bgColor === '#0a1a2a') {
-            console.log('⚠️  Seeing fallback background color - image likely not loading');
-        }
+        console.log('Background now uses CSS gradients and crimson theme');
     }, 1500);
 });
