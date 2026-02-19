@@ -1,5 +1,5 @@
-{
-<<<<<<< HEAD
+﻿{
+
   "outputDirectory": ".",
   "cleanUrls": true,
   "trailingSlash": false,
@@ -26,16 +26,7 @@
     {
       "source": "(.*)",
       "destination": "/index.html"
-=======
-  "framework": "static",
-  "outputDirectory": ".",
-  "buildCommand": "echo 'No build required for static site'",
-  "installCommand": "echo 'Skipping installation for static site'",
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
->>>>>>> da896e0759fc94e4768a0678d9a0016dba9bbc77
+da896e0759fc94e4768a0678d9a0016dba9bbc77
     }
   ]
 }
